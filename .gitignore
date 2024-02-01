@@ -1,0 +1,24 @@
+### Ignore unnecessary files in backend
+
+Migrations/
+
+# User-specific files
+appsettings.json
+appsettings.*.json
+obj/
+bin/
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+.vscode/
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
