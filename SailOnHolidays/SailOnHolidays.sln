@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailOnHolidays.Core", "SailOnHolidays.Core\SailOnHolidays.Core.csproj", "{D2589654-3F45-4A68-8E7F-DEF33F4B05F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailOnHolidays.Business", "SailOnHolidays.Business\SailOnHolidays.Business.csproj", "{8E77D4E6-FBC2-495F-AAE8-B3F53D9D92A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailOnHolidays.Controller", "SailOnHolidays.Controller\SailOnHolidays.Controller.csproj", "{12B7C200-3FE9-4788-AA03-C58E97F8A234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SailOnHolidays.WebAPI", "SailOnHolidays.WebAPI\SailOnHolidays.WebAPI.csproj", "{53C29F14-D9C9-43AA-BD9F-A307571657F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +18,23 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2589654-3F45-4A68-8E7F-DEF33F4B05F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2589654-3F45-4A68-8E7F-DEF33F4B05F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2589654-3F45-4A68-8E7F-DEF33F4B05F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2589654-3F45-4A68-8E7F-DEF33F4B05F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E77D4E6-FBC2-495F-AAE8-B3F53D9D92A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E77D4E6-FBC2-495F-AAE8-B3F53D9D92A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E77D4E6-FBC2-495F-AAE8-B3F53D9D92A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E77D4E6-FBC2-495F-AAE8-B3F53D9D92A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B7C200-3FE9-4788-AA03-C58E97F8A234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B7C200-3FE9-4788-AA03-C58E97F8A234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B7C200-3FE9-4788-AA03-C58E97F8A234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B7C200-3FE9-4788-AA03-C58E97F8A234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C29F14-D9C9-43AA-BD9F-A307571657F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C29F14-D9C9-43AA-BD9F-A307571657F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C29F14-D9C9-43AA-BD9F-A307571657F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C29F14-D9C9-43AA-BD9F-A307571657F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
