@@ -27,6 +27,6 @@ namespace SailOnHolidays.Core.src.Entities
         public bool CoffeMachine { get; set; }
         public bool RadioCd { get; set; }
         public bool OutboardEngine { get; set; }
-        public string Extras { get; set; }
+        public required string Extras { get; set; }
     }
 }
