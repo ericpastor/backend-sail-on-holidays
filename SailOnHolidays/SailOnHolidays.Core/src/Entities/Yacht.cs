@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SailOnHolidays.Core.src.Entities
 {
-    public class Yacht
+    public class Yacht : BaseEntity
     {
         public Guid AreaId { get; set; }
         public required Area Area { get; set; }
