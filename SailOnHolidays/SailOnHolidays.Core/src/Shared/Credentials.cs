@@ -1,4 +1,4 @@
-namespace SailOnHolidays.Core.src.Parameters
+namespace SailOnHolidays.Core.src.Shared
 {
     public class Credentials
     {

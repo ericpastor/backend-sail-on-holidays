@@ -1,5 +1,5 @@
 using SailOnHolidays.Core.src.Entities;
-using SailOnHolidays.Core.src.Parameters;
+using SailOnHolidays.Core.src.Shared;
 
 namespace SailOnHolidays.Core.src
 {

@@ -1,4 +1,4 @@
-using SailOnHolidays.Core.src.Parameters;
+using SailOnHolidays.Core.src.Shared;
 
 namespace SailOnHolidays.Business.src.Interfaces
 {
@@ -7,8 +7,8 @@ namespace SailOnHolidays.Business.src.Interfaces
         Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams parameters);
         Task<TReadDTO> GetByIdAsync(Guid Id);
         Task<TReadDTO> GetByNameAsync(string name);
-        Task<TReadDTO> CreateOneAsync(TCreateDTO createObject);
-        Task<TReadDTO> UpdateOneAsync(TUpdateDTO updateObject);
+        Task<TReadDTO> CreateOneAsync(TCreateDTO createDTO);
+        Task<TReadDTO> UpdateOneAsync(TUpdateDTO updateDTO);
         Task<bool> DeleteOneAsync(Guid id);
     }
 }
