@@ -4,7 +4,7 @@ namespace SailOnHolidays.Business.src.DTOs
     {
         public Guid AreaId { get; set; }
         public required byte[] Data { get; set; }
-        public required string IamgeAreaBase64Data { get; set; }
+        public required string ImageAreaBase64Data { get; set; }
     }
 
     public class ImageAreaCreateDTO

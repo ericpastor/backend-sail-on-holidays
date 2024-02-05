@@ -6,7 +6,7 @@ namespace SailOnHolidays.Business.src.DTOs
     {
         public Guid YachtId { get; set; }
         public required byte[] Data { get; set; }
-        public required string IamgeYachtBase64Data { get; set; }
+        public required string ImageYachtBase64Data { get; set; }
     }
 
     public class ImageYachtCreateDTO
