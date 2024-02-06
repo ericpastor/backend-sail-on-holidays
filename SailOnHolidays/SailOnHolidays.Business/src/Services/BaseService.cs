@@ -10,7 +10,7 @@ namespace SailOnHolidays.Business.src.Services
     {
         protected readonly IBaseRepo<T> _repo;
 
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
 
         public BaseService(IBaseRepo<T> repo, IMapper mapper)
         {
