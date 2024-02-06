@@ -1,3 +1,4 @@
+using AutoMapper;
 using SailOnHolidays.Business.src.DTOs;
 using SailOnHolidays.Business.src.Interfaces;
 using SailOnHolidays.Core.src.Entities;
@@ -9,7 +10,7 @@ namespace SailOnHolidays.Business.src.Services
     {
         protected readonly IYachtRepo _yachtRepo;
 
-        public YachtService(IYachtRepo yachtRepo) : base(yachtRepo)
+        public YachtService(IYachtRepo yachtRepo, IMapper mapper) : base(yachtRepo, mapper)
         {
             _yachtRepo = yachtRepo;
         }

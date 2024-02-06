@@ -1,3 +1,4 @@
+using AutoMapper;
 using SailOnHolidays.Business.src.Interfaces;
 using SailOnHolidays.Core.src;
 using SailOnHolidays.Core.src.Entities;
@@ -9,14 +10,20 @@ namespace SailOnHolidays.Business.src.Services
     {
         protected readonly IBaseRepo<T> _repo;
 
-        public BaseService(IBaseRepo<T> repo)
+        private readonly IMapper _mapper;
+
+        public BaseService(IBaseRepo<T> repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
-        public virtual Task<TReadDTO> CreateOneAsync(TCreateDTO createObject)
+        public virtual async Task<TReadDTO> CreateOneAsync(TCreateDTO createObject)
         {
-            throw new NotImplementedException();
+            var newObject = _mapper.Map<TCreateDTO, T>(createObject) ?? throw new ArgumentNullException(nameof(createObject), "createObject cannot be null");
+            var createdObject = await _repo.CreateOneAsync(newObject);
+
+            return _mapper.Map<T, TReadDTO>(createdObject)!;
         }
 
         public virtual Task<bool> DeleteOneAsync(Guid id)

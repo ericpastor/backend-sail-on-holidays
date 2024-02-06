@@ -1,3 +1,4 @@
+using AutoMapper;
 using SailOnHolidays.Business.src.DTOs;
 using SailOnHolidays.Business.src.Interfaces;
 using SailOnHolidays.Core.src.Entities;
@@ -8,10 +9,9 @@ namespace SailOnHolidays.Business.src.Services
     public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpdateDTO>, IUserService
     {
         protected readonly IUserRepo _userRepo;
-        public UserService(IUserRepo userRepo) : base(userRepo)
+        public UserService(IUserRepo userRepo, IMapper mapper) : base(userRepo, mapper)
         {
             _userRepo = userRepo;
-
         }
 
         public Task<UserReadDTO?> GetByEmailAsync(string email)

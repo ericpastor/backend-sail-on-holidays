@@ -1,3 +1,4 @@
+using AutoMapper;
 using SailOnHolidays.Business.src.DTOs;
 using SailOnHolidays.Business.src.Interfaces;
 using SailOnHolidays.Core.src.Entities;
@@ -9,7 +10,7 @@ namespace SailOnHolidays.Business.src.Services
     {
         protected readonly IBookingRepo _bookingRepo;
 
-        public OrderService(IBookingRepo bookingRepo) : base(bookingRepo)
+        public OrderService(IBookingRepo bookingRepo, IMapper mapper) : base(bookingRepo, mapper)
         {
             _bookingRepo = bookingRepo;
         }
