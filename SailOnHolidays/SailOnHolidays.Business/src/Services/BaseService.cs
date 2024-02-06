@@ -18,6 +18,11 @@ namespace SailOnHolidays.Business.src.Services
             _mapper = mapper;
         }
 
+        public virtual async Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams parameters)
+        {
+            return _mapper.Map<IEnumerable<T>, IEnumerable<TReadDTO>>(await _repo.GetAllAsync(parameters))!;
+        }
+
         public virtual async Task<TReadDTO> CreateOneAsync(TCreateDTO createObject)
         {
             var newObject = _mapper.Map<TCreateDTO, T>(createObject) ?? throw new ArgumentNullException(nameof(createObject), "createObject cannot be null");
@@ -26,29 +31,30 @@ namespace SailOnHolidays.Business.src.Services
             return _mapper.Map<T, TReadDTO>(createdObject)!;
         }
 
-        public virtual Task<bool> DeleteOneAsync(Guid id)
+        public virtual async Task<bool> DeleteOneAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var deleteObject = await _repo.GetByIdAsync(id) ?? throw new NotImplementedException();
+            return await _repo.DeleteOneAsync(deleteObject);
         }
 
-        public virtual Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams parameters)
+
+        public virtual async Task<TReadDTO> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<T, TReadDTO>(await _repo.GetByIdAsync(id)) ?? throw new NotImplementedException();
         }
 
-        public virtual Task<TReadDTO> GetByIdAsync(Guid Id)
+        public virtual async Task<TReadDTO> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<T, TReadDTO>(await _repo.GetByNameAsync(name)) ?? throw new NotImplementedException();
         }
 
-        public virtual Task<TReadDTO> GetByNameAsync(string name)
+        public virtual async Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateObject)
         {
-            throw new NotImplementedException();
-        }
+            var objectToUpdate = await _repo.GetByIdAsync(id) ?? throw new NotImplementedException();
 
-        public virtual Task<TReadDTO> UpdateOneAsync(TUpdateDTO updateObject)
-        {
-            throw new NotImplementedException();
+            var objectUpdated = _mapper.Map(updateObject, objectToUpdate) ?? throw new NotImplementedException();
+
+            return _mapper.Map<T, TReadDTO>(await _repo.UpdateOneAsync(objectUpdated)) ?? throw new NotImplementedException();
         }
     }
 }

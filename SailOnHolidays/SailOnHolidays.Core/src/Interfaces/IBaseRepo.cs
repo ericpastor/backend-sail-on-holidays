@@ -7,7 +7,7 @@ namespace SailOnHolidays.Core.src
     {
         Task<IEnumerable<T>> GetAllAsync(GetAllParams parameters);
         Task<T?> GetByIdAsync(Guid Id);
-        Task<Yacht?> GetByNameAsync(string name);
+        Task<T?> GetByNameAsync(string name);
         Task<T?> CreateOneAsync(T createObject);
         Task<T?> UpdateOneAsync(T updateObject);
         Task<bool> DeleteOneAsync(T deleteObject);

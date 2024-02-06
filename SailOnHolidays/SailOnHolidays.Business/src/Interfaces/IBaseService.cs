@@ -8,7 +8,7 @@ namespace SailOnHolidays.Business.src.Interfaces
         Task<TReadDTO> GetByIdAsync(Guid Id);
         Task<TReadDTO> GetByNameAsync(string name);
         Task<TReadDTO> CreateOneAsync(TCreateDTO createDTO);
-        Task<TReadDTO> UpdateOneAsync(TUpdateDTO updateDTO);
+        Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateDTO);
         Task<bool> DeleteOneAsync(Guid id);
     }
 }
