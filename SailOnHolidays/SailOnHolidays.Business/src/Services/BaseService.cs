@@ -37,7 +37,6 @@ namespace SailOnHolidays.Business.src.Services
             return await _repo.DeleteOneAsync(deleteObject);
         }
 
-
         public virtual async Task<TReadDTO> GetByIdAsync(Guid id)
         {
             return _mapper.Map<T, TReadDTO>(await _repo.GetByIdAsync(id)) ?? throw new NotImplementedException();

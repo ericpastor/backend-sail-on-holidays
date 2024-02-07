@@ -6,7 +6,7 @@ using SailOnHolidays.Core.src.Shared;
 namespace SailOnHolidays.Controller.src.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBase
         where T : BaseEntity
     {
