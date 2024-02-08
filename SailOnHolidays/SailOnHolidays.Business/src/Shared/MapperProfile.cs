@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using SailOnHolidays.Business.src.DTOs;
 using SailOnHolidays.Core.src.Entities;
@@ -15,6 +11,10 @@ namespace SailOnHolidays.Business.src.Shared
             CreateMap<User, UserReadDTO>();
             CreateMap<UserCreateDTO, User>();
             CreateMap<UserUpdateDTO, User>();
+
+            CreateMap<User, OwnerReadDTO>();
+            CreateMap<OwnerCreateDTO, User>();
+            CreateMap<OwnerUpdateDTO, User>();
 
             CreateMap<Avatar, AvatarReadDTO>();
             CreateMap<AvatarCreateDTO, Avatar>();

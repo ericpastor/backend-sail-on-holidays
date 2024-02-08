@@ -2,7 +2,7 @@ namespace SailOnHolidays.Core.src.Entities
 {
     public class Features : BaseEntity
     {
-        public Guid YachtId { get; set; }
+        public Guid YachtIdForFeatures { get; set; }
         public bool AirAconditioning { get; set; }
         public bool Autopilot { get; set; }
         public bool Ais { get; set; }
@@ -27,6 +27,6 @@ namespace SailOnHolidays.Core.src.Entities
         public bool CoffeMachine { get; set; }
         public bool RadioCd { get; set; }
         public bool OutboardEngine { get; set; }
-        public required string Extras { get; set; }
+        public string? Extras { get; set; }
     }
 }

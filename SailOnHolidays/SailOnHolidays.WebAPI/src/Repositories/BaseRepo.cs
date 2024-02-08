@@ -17,34 +17,39 @@ namespace SailOnHolidays.WebAPI.src.Repositories
             _data = _databaseContext.Set<T>();
         }
 
-        public Task<T?> CreateOneAsync(T createObject)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(GetAllParams parameters)
         {
-            throw new NotImplementedException();
+            return await _data.AsNoTracking().Skip(parameters.Offset).Take(parameters.Limit).ToArrayAsync();
         }
 
-        public Task<bool> DeleteOneAsync(T deleteObject)
+        public virtual async Task<T?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _data.FindAsync(id);
         }
 
-        public Task<IEnumerable<T>> GetAllAsync(GetAllParams parameters)
+        public virtual async Task<T?> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _data.FindAsync(name);
+        }
+        public virtual async Task<T?> CreateOneAsync(T createObject)
+        {
+            _data.Add(createObject);
+            await _databaseContext.SaveChangesAsync();
+            return createObject;
         }
 
-        public Task<T?> GetByIdAsync(Guid Id)
+        public virtual async Task<bool> DeleteOneAsync(T deleteObject)
         {
-            throw new NotImplementedException();
+            _data.Remove(deleteObject);
+            await _databaseContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<T?> GetByNameAsync(string name)
+        public virtual async Task<T?> UpdateOneAsync(T updatedObject)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T?> UpdateOneAsync(T updateObject)
-        {
-            throw new NotImplementedException();
+            _data.Update(updatedObject);
+            await _databaseContext.SaveChangesAsync();
+            return updatedObject;
         }
     }
 }

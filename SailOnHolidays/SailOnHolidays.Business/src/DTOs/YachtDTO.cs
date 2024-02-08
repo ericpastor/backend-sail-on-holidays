@@ -20,7 +20,7 @@ namespace SailOnHolidays.Business.src.DTOs
         public RentalType RentalType { get; set; }
         public required IEnumerable<ImageYacht> ImageYachts { get; set; }
         public required Features Features { get; set; }
-        public required ConditionsAndTerms ConditionsAndTerms { get; set; }
+        // public required ConditionsAndTerms ConditionsAndTerms { get; set; }
         public decimal? PricePerHour { get; set; }
         public decimal? PricePerDay { get; set; }
         public decimal PricePerWeek { get; set; }
@@ -44,7 +44,7 @@ namespace SailOnHolidays.Business.src.DTOs
         public RentalType RentalType { get; set; }
         public IEnumerable<ImageYachtReadDTO> ImagesYacht { get; } = new List<ImageYachtReadDTO>();
         public required Features Features { get; set; }
-        public required ConditionsAndTermsCreateDTO ConditionsAndTerms { get; set; }
+        // public required ConditionsAndTermsCreateDTO ConditionsAndTerms { get; set; }
         public decimal? PricePerHour { get; set; }
         public decimal? PricePerDay { get; set; }
         public decimal PricePerWeek { get; set; }
@@ -67,7 +67,7 @@ namespace SailOnHolidays.Business.src.DTOs
         public RentalType RentalType { get; set; }
         public List<ImageYachtCreateDTO> ImagesYacht { get; set; } = [];
         public FeaturesUpdateDTO? Features { get; set; }
-        public ConditionsAndTermsUpdateDTO? ConditionsAndTerms { get; set; }
+        // public ConditionsAndTermsUpdateDTO? ConditionsAndTerms { get; set; }
         public decimal? PricePerHour { get; set; }
         public decimal? PricePerDay { get; set; }
         public decimal PricePerWeek { get; set; }

@@ -1,4 +1,5 @@
 using System.Text;
+using Comm.WebAPI.src.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -33,9 +34,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services
 .AddScoped<IUserService, UserService>()
+.AddScoped<IUserRepo, UserRepo>()
 .AddScoped<ITokenService, TokenService>()
-.AddScoped<IAuthService, AuthService>()
-.AddScoped<IUserRepo, UserRepo>();
+.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
@@ -49,33 +50,47 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options
         .UseNpgsql(dataSource)
-        .UseSnakeCaseNamingConvention();
-    // .AddInterceptors(new TimeStampAsyncInterceptor());
+        .UseSnakeCaseNamingConvention()
+        .AddInterceptors(new TimeStampAsyncInterceptor());
 });
 
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
-// {
-//     o.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//         ValidAudience = builder.Configuration["Jwt:Audience"],
-//         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
-//         ValidateIssuer = true,
-//         ValidateAudience = true,
-//         ValidateLifetime = true,
-//         ValidateIssuerSigningKey = true
-//     };
-// });
+builder.Services.AddTransient<ExceptionHandlerMiddleware>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["Jwt:Issuer" ?? "Default Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience" ?? "Default Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "Default Key")),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(
+     options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        }
+    );
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
 

@@ -1,9 +1,8 @@
 namespace SailOnHolidays.Core.src.Entities
 {
-    public class ImageArea
+    public class ImageArea : BaseEntity
     {
-        public Guid YachtId { get; set; }
-        public required Yacht Yacht { get; set; }
+        public Guid AreaIdForImage { get; set; }
         public required byte[] Data { get; set; }
     }
 }

@@ -9,20 +9,18 @@ namespace SailOnHolidays.Business.src.DTOs
         public required string LastName { get; set; }
         public required string Email { get; set; }
         public required string Phone { get; set; }
-        public required AddressReadDTO Address { get; set; }
-        public required AvatarReadDTO Avatar { get; set; }
+        public required string Street { get; set; }
+        public required string PostalCode { get; set; }
+        public required string City { get; set; }
+        public string? State { get; set; }
+        public required string Country { get; set; }
+        public AvatarReadDTO? Avatar { get; set; }
     }
 
-    public class UserRegisterDTO
+    public class OwnerReadDTO : UserReadDTO
     {
-        public Role Role { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-        public required string Phone { get; set; }
-        public required AddressCreateDTO Address { get; set; }
-        public required AvatarCreateDTO Avatar { get; set; }
+        public required string BankAccountNumber { get; set; }
+        public IEnumerable<Yacht>? Yachts { get; set; }
     }
 
     public class UserCreateDTO
@@ -32,8 +30,16 @@ namespace SailOnHolidays.Business.src.DTOs
         public required string Email { get; set; }
         public required string Password { get; set; }
         public required string Phone { get; set; }
-        public required AddressCreateDTO Address { get; set; }
-        public required AvatarCreateDTO Avatar { get; set; }
+        public required string Street { get; set; }
+        public required string PostalCode { get; set; }
+        public required string City { get; set; }
+        public string? State { get; set; }
+        public required string Country { get; set; }
+    }
+
+    public class OwnerCreateDTO : UserCreateDTO
+    {
+        public required string BankAccountNumber { get; set; }
     }
 
     public class UserUpdateDTO
@@ -42,9 +48,16 @@ namespace SailOnHolidays.Business.src.DTOs
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
-        public AddressUpdateDTO? Address { get; set; }
-        public AvatarUpdateDTO? Avatar { get; set; }
+        public string? Street { get; set; }
+        public string? PostalCode { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
+        public string? BankAccountNumber { get; set; }
     }
 
-
+    public class OwnerUpdateDTO : UserUpdateDTO
+    {
+        public new string? BankAccountNumber { get; set; }
+    }
 }

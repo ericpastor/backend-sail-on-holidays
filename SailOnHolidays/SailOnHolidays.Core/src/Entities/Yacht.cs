@@ -18,9 +18,9 @@ namespace SailOnHolidays.Core.src.Entities
         public int Heads { get; set; }
         public required string Description { get; set; }
         public required RentalType RentalType { get; set; }
-        public required IEnumerable<ImageYacht> ImageYachts { get; set; } = new List<ImageYacht>();
-        public required Features Features { get; set; }
-        public required ConditionsAndTerms ConditionsAndTerms { get; set; }
+        public IEnumerable<ImageYacht> ImageYachts { get; set; } = new List<ImageYacht>();
+        public Features Features { get; set; } = new Features();
+        public ConditionsAndTerms ConditionsAndTerms { get; set; } = new ConditionsAndTerms();
         public decimal? PricePerHour { get; set; }
         public decimal? PricePerDay { get; set; }
         public decimal PricePerWeek { get; set; }

@@ -1,6 +1,8 @@
+using SailOnHolidays.Core.src.Entities;
+
 namespace SailOnHolidays.Business.src.DTOs
 {
-    public class ImageAreaDTO
+    public class ImageAreaReadDTO : BaseEntity
     {
         public Guid AreaId { get; set; }
         public required byte[] Data { get; set; }

@@ -5,6 +5,6 @@ namespace SailOnHolidays.Business.src.Interfaces
     public interface IAuthService
     {
 
-        Task<string> Login(Credentials credentials);
+        Task<string> LoginAsync(Credentials credentials);
     }
 }

@@ -1,8 +1,11 @@
+using System.Text;
 using AutoMapper;
 using SailOnHolidays.Business.src.DTOs;
 using SailOnHolidays.Business.src.Interfaces;
+using SailOnHolidays.Business.src.Shared;
 using SailOnHolidays.Core.src.Entities;
 using SailOnHolidays.Core.src.Interfaces;
+using SailOnHolidays.Core.src.Shared;
 
 namespace SailOnHolidays.Business.src.Services
 {
@@ -14,14 +17,88 @@ namespace SailOnHolidays.Business.src.Services
             _userRepo = userRepo;
         }
 
-        public Task<UserReadDTO?> GetByEmailAsync(string email)
+        public async Task<UserReadDTO?> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<User, UserReadDTO>(await _userRepo.GetByEmailAsync(email)) ?? throw new NotImplementedException();
         }
 
-        public Task<bool> UpdatePasswordAsync(Guid UserId, string newPassword)
+        public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
         {
-            throw new NotImplementedException();
+
+            if (createObject == null)
+            {
+                throw new ArgumentNullException(nameof(createObject));
+            }
+            else if (await _userRepo.GetByEmailAsync(createObject.Email) != null)
+            {
+                throw new NotImplementedException();
+            }
+            PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
+            var user = _mapper.Map<UserCreateDTO, User>(createObject) ?? throw new InvalidOperationException("Mapping to User failed.");
+            user.Password = hashedPassword;
+            user.Salt = salt;
+
+            user.Role = Role.Customer;
+
+            var createdUser = await _userRepo.CreateOneAsync(user);
+
+            if (createdUser == null)
+            {
+                throw new InvalidOperationException("User creation failed.");
+            }
+            return _mapper.Map<User, UserReadDTO>(createdUser)!;
+        }
+
+        public async Task<OwnerReadDTO> CreateOwnerAsync(OwnerCreateDTO createObject)
+        {
+
+            if (createObject == null)
+            {
+                throw new ArgumentNullException(nameof(createObject));
+            }
+            else if (await _userRepo.GetByEmailAsync(createObject.Email) != null)
+            {
+                throw CustomException.NotFoundException();
+            }
+            PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
+            var user = _mapper.Map<OwnerCreateDTO, User>(createObject) ?? throw new InvalidOperationException("Mapping to User failed.");
+            user.Password = hashedPassword;
+            user.Salt = salt;
+
+            user.Role = Role.Owner;
+
+            var createdUser = await _userRepo.CreateOwnerAsync(user);
+
+            if (createdUser == null)
+            {
+                throw new InvalidOperationException("User creation failed.");
+            }
+            return _mapper.Map<User, OwnerReadDTO>(createdUser)!;
+        }
+
+        public async Task<bool> UpdatePasswordAsync(Guid userId, string originalPassword, string newPassword)
+        {
+            var user = await _userRepo.GetByIdAsync(userId) ?? throw new NotImplementedException();
+
+
+            var isPasswordMatch = PasswordService.VerifyPassword(originalPassword, user.Password, user.Salt);
+
+            if (!isPasswordMatch)
+            {
+                throw CustomException.NotFoundException();
+            }
+
+            PasswordService.HashPassword(newPassword, out string salt, out byte[] hashedPassword);
+
+            byte[] saltString = Encoding.UTF8.GetBytes(salt);
+
+            user.Password = hashedPassword.ToString()!;
+            user.Salt = saltString;
+            user.UpdatedAt = DateTime.Now;
+
+            await _userRepo.UpdateOneAsync(user);
+
+            return true;
         }
     }
 }

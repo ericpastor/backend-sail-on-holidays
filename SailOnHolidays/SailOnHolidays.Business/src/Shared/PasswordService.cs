@@ -9,13 +9,13 @@ namespace SailOnHolidays.Business.src.Shared
         {
             var hmac = new HMACSHA256();
             salt = hmac.Key;
-            hashedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)).ToString()!;
+            hashedPassword = BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)));
         }
 
-        public static bool VerifyPassword(string originalPassword, string hashedPasword, byte[] salt)
+        public static bool VerifyPassword(string originalPassword, string hashedPassword, byte[] salt)
         {
             var hmac = new HMACSHA256(salt);
-            return hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)).ToString() == hashedPasword;
+            return BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword))) == hashedPassword;
         }
     }
 }

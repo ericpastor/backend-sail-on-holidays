@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SailOnHolidays.Core.src.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SailOnHolidays.WebAPI.src.Database
 {
@@ -8,12 +9,15 @@ namespace SailOnHolidays.WebAPI.src.Database
         private readonly IConfiguration _config;
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Yacht> Yachts { get; set; }
+        public DbSet<Features> Features { get; set; }
+        public DbSet<ConditionsAndTerms> ConditionsAndTerms { get; set; }
+        public DbSet<ImageYacht> ImageYachts { get; set; }
 
         public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)
         {
             _config = config;
         }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

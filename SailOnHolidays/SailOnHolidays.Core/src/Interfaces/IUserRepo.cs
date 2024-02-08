@@ -5,6 +5,6 @@ namespace SailOnHolidays.Core.src.Interfaces
     public interface IUserRepo : IBaseRepo<User>
     {
         Task<User?> GetByEmailAsync(string email);
-        Task<bool> UpdatePasswordAsync(Guid UserId, string newPassword);
+        Task<User?> CreateOwnerAsync(User createUser);
     }
 }

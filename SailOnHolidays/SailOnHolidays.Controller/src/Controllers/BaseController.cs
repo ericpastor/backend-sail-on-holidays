@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SailOnHolidays.Business.src.Interfaces;
 using SailOnHolidays.Core.src.Entities;
@@ -22,15 +24,20 @@ namespace SailOnHolidays.Controller.src.Controllers
             return Ok(await _service.GetAllAsync(parameters));
         }
 
+        [HttpGet("{id:guid}")]
         public virtual async Task<ActionResult<TReadDTO>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
+        [Authorize]
         [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public virtual async Task<ActionResult<TReadDTO>> CreateOneAsync([FromBody] TCreateDTO createObject)
         {
-            return CreatedAtAction(nameof(CreateOneAsync), await _service.CreateOneAsync(createObject));
+            var createdObject = await _service.CreateOneAsync(createObject);
+            return CreatedAtAction(nameof(CreateOneAsync), createdObject);
         }
 
         [HttpDelete("{id:guid}")]
@@ -44,6 +51,5 @@ namespace SailOnHolidays.Controller.src.Controllers
         {
             return Ok(await _service.UpdateOneAsync(id, updateDTO));
         }
-
     }
 }

@@ -16,15 +16,15 @@ namespace SailOnHolidays.WebAPI.src.ExternalServices
         }
         public string GenerateToken(User user)
         {
-            var issuer = _config.GetSection("Jwt:Issuer").Value;
+            var issuer = _config.GetSection("Jwt:Issuer").Value ?? "Default Issuer";
             var claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
             };
-            var audience = _config.GetSection("Jwt:Audience").Value;
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("Jwt:Key").Value!));
+            var audience = _config.GetSection("Jwt:Audience").Value ?? "Default Audience";
+            var tokenHandler = new JwtSecurityTokenHandler();    //viene de system
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("Jwt:Key").Value ?? "Default Key"));
             var signingKey = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var descriptor = new SecurityTokenDescriptor
             {

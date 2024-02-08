@@ -5,7 +5,6 @@ namespace SailOnHolidays.Business.src.DTOs
     public class AvatarReadDTO : BaseEntity
     {
         public required byte[] Data { get; set; }
-        public required string AvatarBase64Value { get; set; }
     }
     public class AvatarCreateDTO
     {

@@ -7,26 +7,26 @@ namespace SailOnHolidays.Business.src.Services
 {
     public class AuthService : IAuthService
     {
-        private IUserRepo _userRepo;
+        private IUserRepo _repo;
         private ITokenService _tokenService;
         public AuthService(IUserRepo userRepo, ITokenService tokenService)
         {
-            _userRepo = userRepo;
+            _repo = userRepo;
             _tokenService = tokenService;
         }
-        public async Task<string> Login(Credentials credentials)
+        public async Task<string> LoginAsync(Credentials credentials)
         {
-            var foundEmail = await _userRepo.GetByEmailAsync(credentials.Email);
+            var foundEmail = await _repo.GetByEmailAsync(credentials.Email);
             if (foundEmail is null)
             {
-                throw new NotImplementedException();
+                throw CustomException.NotFoundException();
             }
             var isPasswordMatch = PasswordService.VerifyPassword(credentials.Password, foundEmail.Password, foundEmail.Salt);
             if (isPasswordMatch)
             {
                 return _tokenService.GenerateToken(foundEmail);
             }
-            throw new NotImplementedException();
+            throw CustomException.NotFoundException();
         }
     }
 }
