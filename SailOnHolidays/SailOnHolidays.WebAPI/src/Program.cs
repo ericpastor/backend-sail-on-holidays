@@ -35,6 +35,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services
 .AddScoped<IUserService, UserService>()
 .AddScoped<IUserRepo, UserRepo>()
+.AddScoped<IAvatarService, AvatarService>()
+.AddScoped<IAvatarRepo, AvatarRepo>()
 .AddScoped<ITokenService, TokenService>()
 .AddScoped<IAuthService, AuthService>();
 

@@ -9,6 +9,7 @@ namespace SailOnHolidays.WebAPI.src.Database
         private readonly IConfiguration _config;
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
         public DbSet<Yacht> Yachts { get; set; }
         public DbSet<Features> Features { get; set; }
         public DbSet<ConditionsAndTerms> ConditionsAndTerms { get; set; }

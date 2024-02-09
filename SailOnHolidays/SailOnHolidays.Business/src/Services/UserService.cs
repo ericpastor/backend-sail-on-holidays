@@ -36,7 +36,7 @@ namespace SailOnHolidays.Business.src.Services
 
             if (createObject == null)
             {
-                throw new ArgumentNullException(nameof(createObject));
+                throw CustomException.NullException("Object cannot be null");
             }
             else if (await _userRepo.GetByEmailAsync(createObject.Email) != null)
             {
@@ -108,6 +108,23 @@ namespace SailOnHolidays.Business.src.Services
             await _userRepo.UpdateOneAsync(user);
 
             return true;
+        }
+
+        public override async Task<UserReadDTO> UpdateOneAsync(Guid id, UserUpdateDTO updateDTO)
+        {
+            var originalEntity = await _userRepo.GetByIdAsync(id) ?? throw CustomException.NotFoundException("User not found");
+
+            if (updateDTO.Email == originalEntity.Email)
+            {
+                throw CustomException.ConflictException();
+            }
+
+            var updatedEntity = _mapper.Map(updateDTO, originalEntity) ?? throw CustomException.NullException("Updated user cannot be null");
+            updatedEntity.UpdatedAt = DateTime.UtcNow;
+
+            var result = await _repo.UpdateOneAsync(updatedEntity);
+
+            return _mapper.Map<User, UserReadDTO>(result) ?? throw CustomException.MappingErrorException("Something went wrong mapping the result");
         }
     }
 }
