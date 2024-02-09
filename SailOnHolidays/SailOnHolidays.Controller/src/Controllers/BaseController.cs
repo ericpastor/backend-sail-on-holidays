@@ -46,6 +46,7 @@ namespace SailOnHolidays.Controller.src.Controllers
             return Ok(await _service.DeleteOneAsync(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch("{id:guid}")]
         public virtual async Task<ActionResult<TReadDTO>> UpdateOneAsync([FromRoute] Guid id, [FromBody] TUpdateDTO updateDTO)
         {

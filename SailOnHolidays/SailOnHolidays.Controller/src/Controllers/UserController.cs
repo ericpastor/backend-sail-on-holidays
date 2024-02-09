@@ -71,6 +71,22 @@ namespace SailOnHolidays.Controller.src.Controllers
             return await _userService.GetByIdAsync(Guid.Parse(id));
         }
 
+        [Authorize]
+        [HttpGet("owner-profile")]
+        public async Task<ActionResult<OwnerReadDTO>> GetOwnerProfile()
+        {
+            var authenticatedClaims = HttpContext.User;
+            var id = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
+            var ownerResult = await _userService.GetOwnerByIdAsync(Guid.Parse(id));
+
+            if (ownerResult == null)
+            {
+                return NotFound("Owner-profile not found");
+            }
+
+            return ownerResult;
+        }
+
         [Authorize()]
         [HttpPost("change-password")]
         public async Task<ActionResult<bool>> UpdatePasswordAsync([FromBody] string originalPassword, string newPassword)

@@ -17,9 +17,18 @@ namespace SailOnHolidays.Business.src.Services
             _userRepo = userRepo;
         }
 
+        public async Task<OwnerReadDTO?> GetOwnerByIdAsync(Guid id)
+        {
+            return _mapper.Map<User, OwnerReadDTO>(await _userRepo.GetByIdAsync(id)) ?? throw CustomException.MappingErrorException("Mapping to UserReadDTO failed.");
+        }
         public async Task<UserReadDTO?> GetByEmailAsync(string email)
         {
             return _mapper.Map<User, UserReadDTO>(await _userRepo.GetByEmailAsync(email)) ?? throw CustomException.MappingErrorException("Mapping to UserReadDTO failed.");
+        }
+
+        public async Task<OwnerReadDTO?> GetOwnerByEmailAsync(string email)
+        {
+            return _mapper.Map<User, OwnerReadDTO>(await _userRepo.GetByEmailAsync(email)) ?? throw CustomException.MappingErrorException("Mapping to UserReadDTO failed.");
         }
 
         public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
