@@ -19,7 +19,7 @@ namespace SailOnHolidays.Business.src.Services
 
         public async Task<UserReadDTO?> GetByEmailAsync(string email)
         {
-            return _mapper.Map<User, UserReadDTO>(await _userRepo.GetByEmailAsync(email)) ?? throw new NotImplementedException();
+            return _mapper.Map<User, UserReadDTO>(await _userRepo.GetByEmailAsync(email)) ?? throw CustomException.MappingErrorException("Mapping to UserReadDTO failed.");
         }
 
         public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
@@ -34,7 +34,7 @@ namespace SailOnHolidays.Business.src.Services
                 throw new NotImplementedException();
             }
             PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
-            var user = _mapper.Map<UserCreateDTO, User>(createObject) ?? throw new InvalidOperationException("Mapping to User failed.");
+            var user = _mapper.Map<UserCreateDTO, User>(createObject) ?? throw CustomException.MappingErrorException("Mapping to User failed.");
             user.Password = hashedPassword;
             user.Salt = salt;
 
@@ -54,14 +54,14 @@ namespace SailOnHolidays.Business.src.Services
 
             if (createObject == null)
             {
-                throw new ArgumentNullException(nameof(createObject));
+                throw CustomException.NullException("Object cannot be null");
             }
             else if (await _userRepo.GetByEmailAsync(createObject.Email) != null)
             {
-                throw CustomException.NotFoundException();
+                throw CustomException.NotFoundException("");
             }
             PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
-            var user = _mapper.Map<OwnerCreateDTO, User>(createObject) ?? throw new InvalidOperationException("Mapping to User failed.");
+            var user = _mapper.Map<OwnerCreateDTO, User>(createObject) ?? throw CustomException.MappingErrorException("Mapping to User failed.");
             user.Password = hashedPassword;
             user.Salt = salt;
 
@@ -71,21 +71,21 @@ namespace SailOnHolidays.Business.src.Services
 
             if (createdUser == null)
             {
-                throw new InvalidOperationException("User creation failed.");
+                throw CustomException.NullException("User cannot be null. User creation failed.");
             }
             return _mapper.Map<User, OwnerReadDTO>(createdUser)!;
         }
 
         public async Task<bool> UpdatePasswordAsync(Guid userId, string originalPassword, string newPassword)
         {
-            var user = await _userRepo.GetByIdAsync(userId) ?? throw new NotImplementedException();
+            var user = await _userRepo.GetByIdAsync(userId) ?? throw CustomException.NotFoundException("User not found");
 
 
             var isPasswordMatch = PasswordService.VerifyPassword(originalPassword, user.Password, user.Salt);
 
             if (!isPasswordMatch)
             {
-                throw CustomException.NotFoundException();
+                throw CustomException.MatchingException("Password is not matching");
             }
 
             PasswordService.HashPassword(newPassword, out string salt, out byte[] hashedPassword);

@@ -9,7 +9,7 @@ namespace SailOnHolidays.Core.src.Shared
             StatusCode = statusCode;
         }
 
-        public static CustomException NotFoundException(string msg = "Not found")
+        public static CustomException NotFoundException(string msg)
         {
             return new CustomException(404, msg);
         }
@@ -18,6 +18,12 @@ namespace SailOnHolidays.Core.src.Shared
         {
             return new CustomException(400, msg);
         }
+
+        public static CustomException MatchingException(string msg)
+        {
+            return new CustomException(400, msg);
+        }
+
         public static CustomException ListEmptyException(string msg = "List cannot be empty")
         {
             return new CustomException(400, msg);
@@ -27,12 +33,17 @@ namespace SailOnHolidays.Core.src.Shared
             return new CustomException(400, msg);
         }
 
-        public static CustomException AreaNotFoundException(string msg = "Area not found")
+        public static CustomException NullException(string msg)
         {
             return new CustomException(404, msg);
         }
 
         public static CustomException MethodErrorException(string msg = "Something went wrong during the operation")
+        {
+            return new CustomException(417, msg);
+        }
+
+        public static CustomException MappingErrorException(string msg)
         {
             return new CustomException(417, msg);
         }

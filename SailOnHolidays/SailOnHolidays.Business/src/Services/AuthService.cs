@@ -19,14 +19,14 @@ namespace SailOnHolidays.Business.src.Services
             var foundEmail = await _repo.GetByEmailAsync(credentials.Email);
             if (foundEmail is null)
             {
-                throw CustomException.NotFoundException();
+                throw CustomException.NotFoundException("Not found");
             }
             var isPasswordMatch = PasswordService.VerifyPassword(credentials.Password, foundEmail.Password, foundEmail.Salt);
             if (isPasswordMatch)
             {
                 return _tokenService.GenerateToken(foundEmail);
             }
-            throw CustomException.NotFoundException();
+            throw CustomException.MatchingException("No matches found");
         }
     }
 }

@@ -44,7 +44,7 @@ namespace SailOnHolidays.Controller.src.Controllers
 
             if (userId != id.ToString() && userRole != Role.Admin.ToString())
             {
-                throw new NotImplementedException();
+                return Unauthorized();
             }
 
             return await _userService.GetByIdAsync(id);
@@ -116,7 +116,7 @@ namespace SailOnHolidays.Controller.src.Controllers
             return await base.DeleteOneAsync(id);
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public override async Task<ActionResult<bool>> DeleteOneAsync([FromRoute] Guid id)
         {
             return await base.DeleteOneAsync(id);
